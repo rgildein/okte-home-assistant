@@ -73,13 +73,12 @@ def _parse(entries: list[dict]) -> dict:
             elif delivery_day == tomorrow_str:
                 tomorrow_prices.append(price)
 
-            if start_raw:
-                schedule.append({"period": period, "start": start_raw, "price": price})
-
             if start_raw and end_raw:
                 start = datetime.fromisoformat(start_raw.replace("Z", "+00:00"))
                 end = datetime.fromisoformat(end_raw.replace("Z", "+00:00"))
 
+                if end > now:
+                    schedule.append({"period": period, "start": start_raw, "price": price})
                 if start <= now < end:
                     current_price = price
                     current_period = period
