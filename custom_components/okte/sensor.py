@@ -147,3 +147,13 @@ class OkteDamSensor(CoordinatorEntity[OkteDamCoordinator], SensorEntity):
         if self.coordinator.data is None:
             return None
         return self.coordinator.data.get(self.entity_description.coordinator_key)
+
+    @property
+    def extra_state_attributes(self) -> dict | None:
+        """Expose price schedules on the current_price sensor."""
+        if self.entity_description.key != "current_price" or self.coordinator.data is None:
+            return None
+        return {
+            "prices_today": self.coordinator.data.get("prices_today", []),
+            "prices_tomorrow": self.coordinator.data.get("prices_tomorrow", []),
+        }

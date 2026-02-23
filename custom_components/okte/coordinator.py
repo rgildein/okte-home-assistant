@@ -55,6 +55,8 @@ def _parse(entries: list[dict]) -> dict:
 
     today_prices: list[float] = []
     tomorrow_prices: list[float] = []
+    today_schedule: list[dict] = []
+    tomorrow_schedule: list[dict] = []
     current_price: float | None = None
     current_period: int | None = None
     next_price: float | None = None
@@ -65,11 +67,16 @@ def _parse(entries: list[dict]) -> dict:
             delivery_day = entry.get("deliveryDay", "")
             start_raw = entry.get("deliveryStart", "")
             end_raw = entry.get("deliveryEnd", "")
+            period = int(entry["period"])
+
+            slot = {"period": period, "start": start_raw, "price": price}
 
             if delivery_day == today_str:
                 today_prices.append(price)
+                today_schedule.append(slot)
             elif delivery_day == tomorrow_str:
                 tomorrow_prices.append(price)
+                tomorrow_schedule.append(slot)
 
             if start_raw and end_raw:
                 start = datetime.fromisoformat(start_raw.replace("Z", "+00:00"))
@@ -77,7 +84,7 @@ def _parse(entries: list[dict]) -> dict:
 
                 if start <= now < end:
                     current_price = price
-                    current_period = int(entry["period"])
+                    current_period = period
                 if start <= now_plus_15 < end:
                     next_price = price
 
@@ -97,6 +104,8 @@ def _parse(entries: list[dict]) -> dict:
         "current_price": current_price,
         "current_period": current_period,
         "next_price": next_price,
+        "prices_today": today_schedule,
+        "prices_tomorrow": tomorrow_schedule,
         "today_min": _safe_min(today_prices),
         "today_max": _safe_max(today_prices),
         "today_avg": _safe_avg(today_prices),

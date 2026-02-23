@@ -20,6 +20,27 @@ A [HACS](https://hacs.xyz)-compatible Home Assistant custom integration that exp
 
 > **Note:** Tomorrow's data is typically published around 14:00 CET on the preceding day. Before that, tomorrow sensors will show `unavailable`.
 
+### Price schedule attributes
+
+The `sensor.okte_dam_current_price` entity exposes two extra attributes with the full 15-minute price schedule:
+
+| Attribute | Description |
+|-----------|-------------|
+| `prices_today` | List of all 96 periods for today |
+| `prices_tomorrow` | List of all 96 periods for tomorrow (empty before ~14:00 CET) |
+
+Each entry in the list looks like:
+```json
+{"period": 68, "start": "2026-02-23T16:45:00Z", "price": 128.65}
+```
+
+These can be used in automations to find the cheapest periods in the next 24 hours. Example template to find the minimum price in the remaining today + all tomorrow periods:
+```yaml
+{{ (state_attr('sensor.okte_dam_current_price', 'prices_today')
+    + state_attr('sensor.okte_dam_current_price', 'prices_tomorrow'))
+   | map(attribute='price') | min }}
+```
+
 ## Installation via HACS
 
 1. Open HACS in your Home Assistant instance.
