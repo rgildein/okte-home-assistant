@@ -1,30 +1,30 @@
-type: vertical-stack
-title: OKTE Day-Ahead Market
-cards:
-  - type: entities
-    title: Current & Next
-    entities:
-      - entity: sensor.okte_dam_current_price
-        name: Current Price
-      - entity: sensor.okte_dam_next_price
-        name: Next Price
-
-  - type: entities
-    title: Today
-    entities:
-      - entity: sensor.okte_dam_today_min_price
-        name: Min
-      - entity: sensor.okte_dam_today_avg_price
-        name: Avg
-      - entity: sensor.okte_dam_today_max_price
-        name: Max
-
-  - type: entities
-    title: Tomorrow
-    entities:
-      - entity: sensor.okte_dam_tomorrow_min_price
-        name: Min
-      - entity: sensor.okte_dam_tomorrow_avg_price
-        name: Avg
-      - entity: sensor.okte_dam_tomorrow_max_price
-        name: Max
+views:
+  - title: OKTE Day-Ahead Market
+    cards:
+      - type: entities
+        title: Current & Next
+        entities:
+          - entity: sensor.okte_dam_current_price
+            name: Current Price
+          - entity: sensor.okte_dam_next_price
+            name: Next Price
+    
+      - type: entities
+        title: Today
+        entities:
+          - entity: sensor.okte_dam_today_min_price
+            name: Min
+          - entity: sensor.okte_dam_today_avg_price
+            name: Avg
+          - entity: sensor.okte_dam_today_max_price
+            name: Max
+    
+      - type: entities
+        title: Tomorrow
+        entities:
+          - entity: sensor.okte_dam_tomorrow_min_price
+            name: Min
+          - entity: sensor.okte_dam_tomorrow_avg_price
+            name: Avg
+          - entity: sensor.okte_dam_tomorrow_max_price
+            name: Max
