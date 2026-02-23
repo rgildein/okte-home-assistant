@@ -1,0 +1,12 @@
+{
+  "domain": "okte",
+  "name": "OKTE DAM",
+  "version": "1.0.0",
+  "config_flow": true,
+  "iot_class": "cloud_polling",
+  "single_config_entry": true,
+  "documentation": "https://github.com/rgildein/okte-home-assistant",
+  "issue_tracker": "https://github.com/rgildein/okte-home-assistant/issues",
+  "codeowners": ["@rgildein"],
+  "requirements": []
+}

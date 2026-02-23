@@ -1,0 +1,19 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Set up OKTE DAM",
+        "description": "Configure the OKTE Day-Ahead Market electricity price integration.",
+        "data": {
+          "name": "Name"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to the OKTE API. Please check your network connection."
+    },
+    "abort": {
+      "already_configured": "OKTE DAM is already configured."
+    }
+  }
+}
