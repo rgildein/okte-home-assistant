@@ -154,6 +154,5 @@ class OkteDamSensor(CoordinatorEntity[OkteDamCoordinator], SensorEntity):
         if self.entity_description.key != "current_price" or self.coordinator.data is None:
             return None
         return {
-            "prices_today": self.coordinator.data.get("prices_today", []),
-            "prices_tomorrow": self.coordinator.data.get("prices_tomorrow", []),
+            "prices": self.coordinator.data.get("prices", []),
         }

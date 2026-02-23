@@ -22,22 +22,22 @@ A [HACS](https://hacs.xyz)-compatible Home Assistant custom integration that exp
 
 ### Price schedule attributes
 
-The `sensor.okte_dam_current_price` entity exposes two extra attributes with the full 15-minute price schedule:
+The `sensor.okte_dam_current_price` entity exposes a `prices` attribute with the full chronologically-sorted schedule of all available 15-minute periods (today + tomorrow, 96–192 entries).
 
-| Attribute | Description |
-|-----------|-------------|
-| `prices_today` | List of all 96 periods for today |
-| `prices_tomorrow` | List of all 96 periods for tomorrow (empty before ~14:00 CET) |
-
-Each entry in the list looks like:
+Each entry looks like:
 ```json
 {"period": 68, "start": "2026-02-23T16:45:00Z", "price": 128.65}
 ```
 
-These can be used in automations to find the cheapest periods in the next 24 hours. Example template to find the minimum price in the remaining today + all tomorrow periods:
+Example templates:
+
 ```yaml
-{{ (state_attr('sensor.okte_dam_current_price', 'prices_today')
-    + state_attr('sensor.okte_dam_current_price', 'prices_tomorrow'))
+# Minimum price across all available periods
+{{ state_attr('sensor.okte_dam_current_price', 'prices') | map(attribute='price') | min }}
+
+# Cheapest upcoming period (future only)
+{{ state_attr('sensor.okte_dam_current_price', 'prices')
+   | selectattr('start', '>', now().isoformat())
    | map(attribute='price') | min }}
 ```
 
