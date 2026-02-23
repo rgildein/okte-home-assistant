@@ -72,7 +72,13 @@ No authentication is required. Data is refreshed every **30 minutes**.
 
 ## Dashboard Example
 
-See [`dashboard_example.yaml`](dashboard_example.yaml) for a ready-to-use Lovelace card configuration. Paste its contents into **Edit dashboard → Raw configuration editor**.
+See [`dashboard_example.yaml`](dashboard_example.yaml) for a ready-to-use Lovelace configuration featuring:
+- **Upcoming price chart** — bar chart of all available periods (today + tomorrow) with color thresholds (green/orange/red), requires [apexcharts-card](https://github.com/RomRider/apexcharts-card) from HACS
+- **Today/Tomorrow** — min/avg/max summary cards
+
+Paste its contents into **Edit dashboard → Raw configuration editor**.
+
+> **Prerequisite:** Install [apexcharts-card](https://github.com/RomRider/apexcharts-card) via HACS before using the dashboard.
 
 ## Verification
 

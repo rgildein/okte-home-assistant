@@ -1,30 +1,35 @@
 views:
   - title: OKTE Day-Ahead Market
+    type: panel
     cards:
-      - type: entities
-        title: Current & Next
-        entities:
+      - type: custom:apexcharts-card
+        header:
+          show: true
+          title: Upcoming Prices (EUR/MWh)
+        graph_span: 24h
+        span:
+          start: hour
+        apex_config:
+          xaxis:
+            type: datetime
+          chart:
+            zoom:
+              enabled: false
+        now:
+          show: true
+          label: Now
+        series:
           - entity: sensor.okte_dam_prices
-            name: Current Price
-          - entity: sensor.okte_dam_current_period
-            name: Current Period
-    
-      - type: entities
-        title: Today
-        entities:
-          - entity: sensor.okte_dam_today_min_price
-            name: Min
-          - entity: sensor.okte_dam_today_avg_price
-            name: Avg
-          - entity: sensor.okte_dam_today_max_price
-            name: Max
-    
-      - type: entities
-        title: Tomorrow
-        entities:
-          - entity: sensor.okte_dam_tomorrow_min_price
-            name: Min
-          - entity: sensor.okte_dam_tomorrow_avg_price
-            name: Avg
-          - entity: sensor.okte_dam_tomorrow_max_price
-            name: Max
+            name: Price
+            type: column
+            data_generator: |
+              return entity.attributes.prices.map(entry => {
+                return [new Date(entry.start).getTime(), entry.price];
+              });
+            color_threshold:
+              - value: 50
+                color: green
+              - value: 100
+                color: orange
+              - value: 150
+                color: red
