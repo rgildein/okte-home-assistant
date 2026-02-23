@@ -31,9 +31,9 @@ class OkteSensorEntityDescription(SensorEntityDescription):
 
 SENSOR_DESCRIPTIONS: tuple[OkteSensorEntityDescription, ...] = (
     OkteSensorEntityDescription(
-        key="current_price",
+        key="prices",
         coordinator_key="current_price",
-        name="Current Price",
+        name="Prices",
         native_unit_of_measurement=UNIT_EUR_MWH,
         state_class=SensorStateClass.MEASUREMENT,
         icon="mdi:currency-eur",
@@ -45,14 +45,6 @@ SENSOR_DESCRIPTIONS: tuple[OkteSensorEntityDescription, ...] = (
         native_unit_of_measurement=None,
         state_class=SensorStateClass.MEASUREMENT,
         icon="mdi:timer-outline",
-    ),
-    OkteSensorEntityDescription(
-        key="next_price",
-        coordinator_key="next_price",
-        name="Next Price",
-        native_unit_of_measurement=UNIT_EUR_MWH,
-        state_class=SensorStateClass.MEASUREMENT,
-        icon="mdi:currency-eur",
     ),
     OkteSensorEntityDescription(
         key="today_min",
@@ -151,7 +143,7 @@ class OkteDamSensor(CoordinatorEntity[OkteDamCoordinator], SensorEntity):
     @property
     def extra_state_attributes(self) -> dict | None:
         """Expose price schedules on the current_price sensor."""
-        if self.entity_description.key != "current_price" or self.coordinator.data is None:
+        if self.entity_description.key != "prices" or self.coordinator.data is None:
             return None
         return {
             "prices": self.coordinator.data.get("prices", []),

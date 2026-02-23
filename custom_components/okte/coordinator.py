@@ -48,7 +48,6 @@ class OkteDamCoordinator(DataUpdateCoordinator[dict]):
 def _parse(entries: list[dict]) -> dict:
     """Parse raw API entries into the 8 sensor values."""
     now = datetime.now(timezone.utc)
-    now_plus_15 = now + timedelta(minutes=15)
 
     today_str = now.date().isoformat()
     tomorrow_str = (now.date() + timedelta(days=1)).isoformat()
@@ -58,7 +57,6 @@ def _parse(entries: list[dict]) -> dict:
     schedule: list[dict] = []
     current_price: float | None = None
     current_period: int | None = None
-    next_price: float | None = None
 
     for entry in entries:
         try:
@@ -82,8 +80,6 @@ def _parse(entries: list[dict]) -> dict:
                 if start <= now < end:
                     current_price = price
                     current_period = period
-                if start <= now_plus_15 < end:
-                    next_price = price
 
         except (KeyError, ValueError, TypeError) as err:
             _LOGGER.debug("Skipping malformed entry %s: %s", entry, err)
@@ -100,7 +96,6 @@ def _parse(entries: list[dict]) -> dict:
     return {
         "current_price": current_price,
         "current_period": current_period,
-        "next_price": next_price,
         "prices": sorted(schedule, key=lambda x: x["start"]),
         "today_min": _safe_min(today_prices),
         "today_max": _safe_max(today_prices),
