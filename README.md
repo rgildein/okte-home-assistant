@@ -9,6 +9,7 @@ A [HACS](https://hacs.xyz)-compatible Home Assistant custom integration that exp
 | Entity | Description |
 |--------|-------------|
 | `sensor.okte_dam_current_price` | Price for the current 15-minute period (EUR/MWh) |
+| `sensor.okte_dam_current_period` | Period number of the current 15-minute slot (1–96) |
 | `sensor.okte_dam_next_price` | Price for the next 15-minute period (EUR/MWh) |
 | `sensor.okte_dam_today_min_price` | Today's minimum price (EUR/MWh) |
 | `sensor.okte_dam_today_max_price` | Today's maximum price (EUR/MWh) |

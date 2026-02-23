@@ -56,6 +56,7 @@ def _parse(entries: list[dict]) -> dict:
     today_prices: list[float] = []
     tomorrow_prices: list[float] = []
     current_price: float | None = None
+    current_period: int | None = None
     next_price: float | None = None
 
     for entry in entries:
@@ -76,6 +77,7 @@ def _parse(entries: list[dict]) -> dict:
 
                 if start <= now < end:
                     current_price = price
+                    current_period = int(entry["period"])
                 if start <= now_plus_15 < end:
                     next_price = price
 
@@ -93,6 +95,7 @@ def _parse(entries: list[dict]) -> dict:
 
     return {
         "current_price": current_price,
+        "current_period": current_period,
         "next_price": next_price,
         "today_min": _safe_min(today_prices),
         "today_max": _safe_max(today_prices),

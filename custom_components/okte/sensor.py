@@ -39,6 +39,14 @@ SENSOR_DESCRIPTIONS: tuple[OkteSensorEntityDescription, ...] = (
         icon="mdi:currency-eur",
     ),
     OkteSensorEntityDescription(
+        key="current_period",
+        coordinator_key="current_period",
+        name="Current Period",
+        native_unit_of_measurement=None,
+        state_class=SensorStateClass.MEASUREMENT,
+        icon="mdi:timer-outline",
+    ),
+    OkteSensorEntityDescription(
         key="next_price",
         coordinator_key="next_price",
         name="Next Price",
