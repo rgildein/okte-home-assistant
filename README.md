@@ -67,7 +67,7 @@ No authentication is required. Data is refreshed every **30 minutes**.
 
 ## Dashboard Example
 
-See [`dashboard_example.yaml`](dashboard_example.yaml) for a ready-to-use Lovelace card configuration.
+See [`dashboard_example.yaml`](dashboard_example.yaml) for a ready-to-use Lovelace card configuration. Paste its contents into **Edit dashboard → Raw configuration editor**.
 
 ## Verification
 

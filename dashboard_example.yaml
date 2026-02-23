@@ -6,6 +6,8 @@ views:
         entities:
           - entity: sensor.okte_dam_current_price
             name: Current Price
+          - entity: sensor.okte_dam_current_period
+            name: Current Period
           - entity: sensor.okte_dam_next_price
             name: Next Price
     
