@@ -1,3 +1,14 @@
+[project]
+name = "okte-home-assistant"
+version = "1.0.0"
+requires-python = ">=3.12"
+
+[project.optional-dependencies]
+dev = [
+    "homeassistant",
+    "ruff",
+]
+
 [tool.ruff]
 line-length = 120
 
