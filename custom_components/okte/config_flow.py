@@ -25,29 +25,21 @@ class OkteDamConfigFlow(ConfigFlow, domain=DOMAIN):
 
     VERSION = 1
 
-    async def async_step_user(
-        self, user_input: dict | None = None
-    ) -> ConfigFlowResult:
-        errors: dict[str, str] = {}
+    async def async_step_user(self, user_input: dict | None = None) -> ConfigFlowResult:
+        """Handle the initial step."""
+        if user_input is None:
+            return self.async_show_form(step_id="user", data_schema=STEP_USER_DATA_SCHEMA)
 
-        if user_input is not None:
-            await self.async_set_unique_id(DOMAIN)
-            self._abort_if_unique_id_configured()
+        await self.async_set_unique_id(DOMAIN)
+        self._abort_if_unique_id_configured()
+        if error := await self._test_connectivity():
+            return self.async_show_form(
+                step_id="user",
+                data_schema=STEP_USER_DATA_SCHEMA,
+                errors={"base": error},
+            )
 
-            error = await self._test_connectivity()
-            if error:
-                errors["base"] = error
-            else:
-                return self.async_create_entry(
-                    title=user_input.get("name", DEFAULT_NAME),
-                    data=user_input,
-                )
-
-        return self.async_show_form(
-            step_id="user",
-            data_schema=STEP_USER_DATA_SCHEMA,
-            errors=errors,
-        )
+        return self.async_create_entry(title=user_input.get("name", DEFAULT_NAME), data=user_input)
 
     async def _test_connectivity(self) -> str | None:
         """Return an error key string on failure, or None on success."""
@@ -62,4 +54,3 @@ class OkteDamConfigFlow(ConfigFlow, domain=DOMAIN):
         except aiohttp.ClientError as err:
             _LOGGER.error("Cannot reach OKTE API: %s", err)
             return "cannot_connect"
-        return None

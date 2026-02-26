@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "Set up OKTE DAM",
-        "description": "Configure the OKTE Day-Ahead Market electricity price integration.",
+        "description": "Configuring the integration of electricity prices on the OKTE daily market.",
         "data": {
           "name": "Name"
         }

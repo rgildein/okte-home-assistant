@@ -10,14 +10,9 @@ A [HACS](https://hacs.xyz)-compatible Home Assistant custom integration that exp
 |--------|-------------|
 | `sensor.okte_dam_prices` | Current price (EUR/MWh) — state is `prices[0]`, carries full `prices` attribute |
 | `sensor.okte_dam_current_period` | Period number of the current 15-minute slot (1–96) |
-| `sensor.okte_dam_today_min_price` | Today's minimum price (EUR/MWh) |
-| `sensor.okte_dam_today_max_price` | Today's maximum price (EUR/MWh) |
-| `sensor.okte_dam_today_avg_price` | Today's average price (EUR/MWh) |
-| `sensor.okte_dam_tomorrow_min_price` | Tomorrow's minimum price — available ~14:00 CET (EUR/MWh) |
-| `sensor.okte_dam_tomorrow_max_price` | Tomorrow's maximum price — available ~14:00 CET (EUR/MWh) |
-| `sensor.okte_dam_tomorrow_avg_price` | Tomorrow's average price — available ~14:00 CET (EUR/MWh) |
-
-> **Note:** Tomorrow's data is typically published around 14:00 CET on the preceding day. Before that, tomorrow sensors will show `unavailable`.
+| `sensor.okte_dam_min_price` | Minimum price across all fetched periods (EUR/MWh) |
+| `sensor.okte_dam_max_price` | Maximum price across all fetched periods (EUR/MWh) |
+| `sensor.okte_dam_avg_price` | Average price across all fetched periods (EUR/MWh) |
 
 ### Price schedule attributes
 
@@ -74,7 +69,7 @@ No authentication is required. Data is refreshed every **30 minutes**.
 
 See [`dashboard_example.yaml`](dashboard_example.yaml) for a ready-to-use Lovelace configuration featuring:
 - **Upcoming price chart** — bar chart of all available periods (today + tomorrow) with color thresholds (green/orange/red), requires [apexcharts-card](https://github.com/RomRider/apexcharts-card) from HACS
-- **Today/Tomorrow** — min/avg/max summary cards
+- **Min/Avg/Max** — summary cards
 
 Paste its contents into **Edit dashboard → Raw configuration editor**.
 

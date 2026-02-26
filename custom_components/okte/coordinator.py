@@ -48,11 +48,7 @@ def _parse(entries: list[dict]) -> dict:
     """Parse raw API entries into the 8 sensor values."""
     now = datetime.now(timezone.utc)
 
-    today_str = now.date().isoformat()
-    tomorrow_str = (now.date() + timedelta(days=1)).isoformat()
-
-    today_prices: list[float] = []
-    tomorrow_prices: list[float] = []
+    all_prices: list[float] = []
     schedule: list[dict] = []
     current_price: float | None = None
     current_period: int | None = None
@@ -60,15 +56,11 @@ def _parse(entries: list[dict]) -> dict:
     for entry in entries:
         try:
             price = float(entry["price"])
-            delivery_day = entry.get("deliveryDay", "")
             start_raw = entry.get("deliveryStart", "")
             end_raw = entry.get("deliveryEnd", "")
             period = int(entry["period"])
 
-            if delivery_day == today_str:
-                today_prices.append(price)
-            elif delivery_day == tomorrow_str:
-                tomorrow_prices.append(price)
+            all_prices.append(price)
 
             if start_raw and end_raw:
                 start = datetime.fromisoformat(start_raw.replace("Z", "+00:00"))
@@ -96,10 +88,7 @@ def _parse(entries: list[dict]) -> dict:
         "current_price": current_price,
         "current_period": current_period,
         "prices": sorted(schedule, key=lambda x: x["start"]),
-        "today_min": _safe_min(today_prices),
-        "today_max": _safe_max(today_prices),
-        "today_avg": _safe_avg(today_prices),
-        "tomorrow_min": _safe_min(tomorrow_prices),
-        "tomorrow_max": _safe_max(tomorrow_prices),
-        "tomorrow_avg": _safe_avg(tomorrow_prices),
+        "min": _safe_min(all_prices),
+        "max": _safe_max(all_prices),
+        "avg": _safe_avg(all_prices),
     }
