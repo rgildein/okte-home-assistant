@@ -12,6 +12,9 @@ __pycache__/
 .venv/
 venv/
 
+# Ruff cache
+.ruff_cache/
+
 # Editor
 .DS_Store
 *.swp

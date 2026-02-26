@@ -6,7 +6,6 @@ from datetime import datetime, timezone
 
 import aiohttp
 import voluptuous as vol
-
 from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 

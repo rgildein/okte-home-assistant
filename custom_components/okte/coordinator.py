@@ -5,7 +5,6 @@ import logging
 from datetime import datetime, timedelta, timezone
 
 import aiohttp
-
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from .const import API_URL, DOMAIN, UPDATE_INTERVAL_MINUTES
